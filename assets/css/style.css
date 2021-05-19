@@ -7,3 +7,13 @@
 .price{
     font-weight: bold;
 }
+
+.imgModal{
+    width: 5rem !important;
+    /* margin-top: 2rem !important; */
+}
+
+.tailleModal{
+    width: 40rem !important;
+    /* margin-top: 2rem !important; */
+}
