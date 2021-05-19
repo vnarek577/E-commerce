@@ -10,6 +10,11 @@
     <title>Document</title>
 </head>
 <style>
+    @font-face {
+        font-family: "Pattaya-Regular";
+        src: url(./assets/font/Pattaya-Regular.ttf);
+    }
+    
     .header {
         text-align: center;
         color: white;
@@ -23,13 +28,18 @@
     .border-left {
         border-left: 0.0625rem solid black
     }
+    
+    .logo {
+        font-family: "Pattaya-Regular";
+        font-size: 40px;
+    }
 </style>
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-lg">
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand logo" onclick="history.go(0)" href="#">Logo</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -62,12 +72,10 @@
         <div class="row d-flex justify-content-center">
             <div class="col-6 col-lg-3">
                 <div class="card border-0 text-center">
-                    <img src="./assets/clothes/imgvetement.jpg" class="card-img-top" alt="vetement1" type="button"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <img src="./assets/clothes/imgvetement.jpg" class="card-img-top" alt="vetement1" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <div class="card-body">
                         <h5 class="card-title">Veste en jean</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                         <div class="d-flex ">
                             <p class="price mx-auto">15€</p>
                             <a class="btn btn-primary mx-auto">Ajouter au panier</a>
@@ -79,31 +87,30 @@
     </div>
 
     <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
     </script>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 
 </html>
