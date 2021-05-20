@@ -52,9 +52,10 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
             // au clic sur l'image
             card.getElementsByTagName("img")[0].onclick = function () {
                 // référence vers notre modale
-                const modal = document.getElementsByClassName("modal")[0]
+                const modal = document.getElementsByClassName("modalDescriptionArticle")[0]
 
                 // modification du titre
+                console.log(modal)
                 modal.getElementsByClassName("titreModal")[0].innerHTML = dataCard.title
 
                 // modification du carrousel
