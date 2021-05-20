@@ -31,7 +31,7 @@
     }
 
     .border-left {
-        border-left: 0.0625rem solid black
+        border-left: 0.0625rem solid white;
     }
 
     .logo {
@@ -48,13 +48,14 @@
         height: 1rem;
         display: flex;
         flex-wrap: wrap;
-        background-color: red;
+        background-color: grey;
         align-content: center;
         justify-content: center;
         border-radius: 100%;
         position: absolute;
         bottom: 0;
         right: 0;
+        color: white;
     }
 
     .item-count2 {
@@ -79,7 +80,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-lg">
-            <a class="navbar-brand logo" onclick="history.go(0)" href="#"><img width="50px" src="logo6.png"></a>
+            <a class="navbar-brand logo" href="#"><img width="50px" src="./assets/img/logo.png"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -99,7 +100,8 @@
                 </ul>
                 <form class="d-flex button-space">
 
-                    <button class="btn item-button" type="submit"><i class="bi bi-cart4 color"></i>
+                    <button class="btn item-button" type="button" data-bs-toggle="modal" data-bs-target="#exModal"><i
+                            class="bi bi-cart4 color"></i>
                     </button>
                     <div id="myBasket"></div>
 
@@ -107,6 +109,25 @@
             </div>
         </div>
     </nav>
+
+    <div class="modal" tabindex="-1" id="exModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        </label>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Valider mon panier</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="header mt-5">
@@ -116,19 +137,19 @@
     </div>
 
     <main class="container">
-        <h1 class="women_fragId">Femme</h1>
+        <h1 class="women_fragId bg-dark text-white text-center" id="Femme">Femme</h1>
         <div class="women_container row women">
             <div class="row d-flex justify-content-center">
 
             </div>
         </div>
-        <h1 class="men_fragId">Homme</h1>
+        <h1 class="men_fragId bg-dark text-white text-center mt-5" id="Homme">Homme</h1>
         <div class="men_container row men">
             <div class="row d-flex justify-content-center">
 
             </div>
         </div>
-        <h1 class="child_fragId">Enfant</h1>
+        <h1 class="child_fragId bg-dark text-white text-center mt-5" id="Enfant">Enfant</h1>
         <div class="child_container row children">
             <div class="row d-flex justify-content-center">
 
@@ -138,7 +159,8 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade modalDescriptionArticle" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -184,7 +206,6 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script>
-
 
 </body>
 
