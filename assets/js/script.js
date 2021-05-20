@@ -49,11 +49,8 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
             const card = createCard(itemsImages[0], dataCard.id, dataCard.title, dataCard.price)
             document.getElementsByClassName(`${entry}_container`)[0].children[0].append(card)
 
-            // au clic sur ajouter au panier
+            // au clic sur l'image
             card.getElementsByTagName("img")[0].onclick = function () {
-                // on incrémente le score du panier
-                // incrementBasketCount()
-
                 // référence vers notre modale
                 const modal = document.getElementsByClassName("modal")[0]
 
@@ -75,6 +72,11 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
 
                 // }
             }
+            // au click sur le bouton "ajout au panier"
+            card.getElementsByClassName("add-to-basket")[0].onclick = function () {
+                // on incrémente le score du panier
+                modifyBasket()
+            }
 
         })
 
@@ -85,10 +87,11 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
 
 let addBasket = 0
 
-function modifyBasket(){
+function modifyBasket() {
     addBasket++
     myBasket.innerHTML = addBasket
-     if (addBasket == 0) {
-            document.getElementById("myBasket").className = "item-count2"
-        } else
-        document.getElementById("myBasket").className = "item-count"}
+    if (addBasket == 0) {
+        document.getElementById("myBasket").className = "item-count2"
+    } else
+        document.getElementById("myBasket").className = "item-count"
+}
