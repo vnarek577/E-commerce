@@ -5,57 +5,108 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Document</title>
 </head>
 <style>
+    @font-face {
+        font-family: "Pattaya-Regular";
+        src: url(./assets/font/Pattaya-Regular.ttf);
+    }
+    
     .header {
         text-align: center;
         color: white;
         font-size: 30px;
     }
-
+    
     .header img {
         width: 90%;
     }
-
+    
     .border-left {
         border-left: 0.0625rem solid black
     }
+    
+    .logo {
+        font-family: "Pattaya-Regular";
+        font-size: 40px;
+    }
+    
+    .gop {
+        font-size: 50px;
+    }
+    
+    .item-count {
+        width: 1rem;
+        height: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: red;
+        align-content: center;
+        justify-content: center;
+        border-radius: 100%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    .item-count2 {
+        display: none;
+    }
+    
+    .item-button {
+        position: relative;
+    }
+    
+    .button-space {
+        position: relative;
+    }
+    
+    .color {
+        color: white;
+        font-size: x-large;
+    }
 </style>
 
-<body>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-lg">
-            <a class="navbar-brand" href="#">Logo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand logo" onclick="history.go(0)" href="#"><img width="50px" src="logo6.png"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link border-left" href="#">Femme</a>
+                        <a class="nav-link border-left" href="#Femme">Femme</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border-left" href="#">Homme</a>
+                        <a class="nav-link border-left" href="#Homme">Homme</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border-left" href="#">Enfant</a>
+                        <a class="nav-link border-left" href="#Enfant">Enfant</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <button class="btn" type="submit"><img width="30px" src="./assets/img/basket.svg"></button>
+                <form class="d-flex button-space">
+
+                    <button class="btn item-button" type="submit"><i class="bi bi-cart4 color"></i>
+                    </button>
+                    <div  id="myBasket"></div>
+
                 </form>
             </div>
         </div>
     </nav>
 
-    <div class="header">
+
+    <div class="header mt-5">
         <img src="./assets/img/hero.jpg">
         <h1>Header</h1>
         <p>My supercool header</p>
@@ -63,13 +114,23 @@
 
     <main class="container">
         <h1 class="women_fragId">Femme</h1>
-        <div class="row women">
+        <div class="women_container row women">
+            <div class="row d-flex justify-content-center">
+
+            </div>
         </div>
         <h1 class="men_fragId">Homme</h1>
-        <div class="row men">
+        <div class="men_container row men">
+            <div class="row d-flex justify-content-center">
+
+            </div>
         </div>
-        <h1 class="children_fragId">Enfant</h1>
-        <div class="row children"></div>
+        <h1 class="child_fragId">Enfant</h1>
+        <div class="child_container row children">
+            <div class="row d-flex justify-content-center">
+
+            </div>
+        </div>
     </main>
 
 
@@ -78,8 +139,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-6 col-lg-3">
                 <div class="card border-0 text-center">
-                    <img src="./assets/img/imgvetement.jpg" class="card-img-top" alt="vetement1" type="button"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <img src="./assets/img/imgvetement.jpg" class="card-img-top" alt="vetement1" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <div class="card-body">
                         <p class="card-title articleTitle">Veste en jean</p>
                         <div class="d-flex ">
@@ -96,27 +156,27 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="modal-body text-center">
                     <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                          <div class="carousel-item active">
-                            <img src="./assets/img/H7-0.webp" class=" imgModal" alt="photo1">
-                          </div>
-                          <div class="carousel-item">
-                            <img src="./assets/img/H7-1.webp" class=" imgModal" alt="photo2">
-                          </div>
-                          <div class="carousel-item">
-                            <img src="./assets/img/H7-2.webp" class=" imgModal" alt="photo3">
-                          </div>
+                            <div class="carousel-item active">
+                                <img src="./assets/img/H7-0.webp" class=" imgModal" alt="photo1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./assets/img/H7-1.webp" class=" imgModal" alt="photo2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="./assets/img/H7-2.webp" class=" imgModal" alt="photo3">
+                            </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Previous</span>
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                          <span class="visually-hidden">Next</span>
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
                         </button>
                       </div>
                 <p class="titreModal text-center">Veste en jean</p>
@@ -130,23 +190,6 @@
             </div>
         </div>
     </div>
-
-
-<script>
-
-//Fonction permettant de faire évoluer le chiffre du volume d'article à coté du panier
-
-let addBasket = 0
-
-function modifyBasket(){
-    addBasket++
-    console.log(addBasket)
-    }
-
-
-</script>
-
-
 
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"

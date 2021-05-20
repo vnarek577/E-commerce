@@ -1,28 +1,28 @@
-.price{
+.price {
     font-weight: bold;
 }
 
-.articleTitle{
+.articleTitle {
     font-size: 1.25rem !important;
     margin-bottom: 1rem;
 }
 
-.imgModal{
+.imgModal {
     width: 28rem;
 }
 
-.tailleModal{
+.tailleModal {
     width: 30rem !important;
 }
 
 
-.hauteurHeadModal{
+.hauteurHeadModal {
     width: 0.5rem !important;
 }
 
 .titreModal {
     margin-top: 0.5em;
-    font-weight:bold;
+    font-weight: bold;
     color: black;
     font-size: 20px;
 }
@@ -34,7 +34,8 @@
     padding: 2px;
 }
 
-.carousel-control-prev-icon, .carousel-control-next-icon {
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
     outline: black;
     background-color: rgba(0, 0, 0, 0.3);
     background-size: 100%, 100%;
