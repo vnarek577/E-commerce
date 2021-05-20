@@ -1,4 +1,54 @@
 {
+    "women": [
+        {
+            "id": 0,
+            "title": "Pull&Bear - Jean push-up - Noir",
+            "material": "98 % coton, 2 % élasthanne",
+            "price": "19.99"
+        },
+        {
+            "id": 1,
+            "title": "Monki - Tea - Débardeur sans manches en maille - Beige",
+            "material": "50 % acrylique, 50 % coton",
+            "price": "26.99"
+        },
+        {
+            "id": 2,
+            "title": "New Look - Robe courte à décolleté en cœur et imprimé fleuri - Lilas",
+            "material": "100 % viscose",
+            "price": "25.99"
+        },
+        {
+            "id": 3,
+            "title": "ASOS DESIGN - Robe nuisette courte avec col V - Noir",
+            "material": "100% polyester",
+            "price": "18.99"
+        },
+        {
+            "id": 4,
+            "title": "Forever New - Millie - Mules à talon carré et brides multiples - Blanc",
+            "material": "100% polyuréthane",
+            "price": "82.99"
+        },
+        {
+            "id": 5,
+            "title": "Forever New - Robe courte dos nu à étages et manches ballon avec détails en dentelle et imprimé floral - Pastel",
+            "material": "100 % polyester",
+            "price": "131.99"
+        },
+        {
+            "id": 6,
+            "title": "New Look - Caraco froncé à manches nouées - Carreaux bleus",
+            "material": "80 % polyester, 15 % coton, 5 % nylon",
+            "price": "23,99"
+        },
+        {
+            "id": 7,
+            "title": "Little Mistress - Combinaison 2-en-1 à manches bouffantes et ceinture - Bleu marine",
+            "material": "100 % polyester. Composition : 90 % polyester, 10 % élasthanne. Tulle : 100 % nylon",
+            "price": "96.99"
+        }
+    ],
     "men": [
         {
             "id": 0,
@@ -97,56 +147,6 @@
             "title": "Ensemble top et jogging avec piqûres",
             "material": "95% Coton, 5% Élasthanne",
             "price": "16.99"
-        }
-    ],
-    "women": [
-        {
-            "id": 0,
-            "title": "Pull&Bear - Jean push-up - Noir",
-            "material": "98 % coton, 2 % élasthanne",
-            "price": "19.99"
-        },
-        {
-            "id": 1,
-            "title": "Monki - Tea - Débardeur sans manches en maille - Beige",
-            "material": "50 % acrylique, 50 % coton",
-            "price": "26.99"
-        },
-        {
-            "id": 2,
-            "title": "New Look - Robe courte à décolleté en cœur et imprimé fleuri - Lilas",
-            "material": "100 % viscose",
-            "price": "25.99"
-        },
-        {
-            "id": 3,
-            "title": "ASOS DESIGN - Robe nuisette courte avec col V - Noir",
-            "material": "100% polyester",
-            "price": "18.99"
-        },
-        {
-            "id": 4,
-            "title": "Forever New - Millie - Mules à talon carré et brides multiples - Blanc",
-            "material": "100% polyuréthane",
-            "price": "82.99"
-        },
-        {
-            "id": 5,
-            "title": "Forever New - Robe courte dos nu à étages et manches ballon avec détails en dentelle et imprimé floral - Pastel",
-            "material": "100 % polyester",
-            "price": "131.99"
-        },
-        {
-            "id": 6,
-            "title": "New Look - Caraco froncé à manches nouées - Carreaux bleus",
-            "material": "80 % polyester, 15 % coton, 5 % nylon",
-            "price": "23,99"
-        },
-        {
-            "id": 7,
-            "title": "Little Mistress - Combinaison 2-en-1 à manches bouffantes et ceinture - Bleu marine",
-            "material": "100 % polyester. Composition : 90 % polyester, 10 % élasthanne. Tulle : 100 % nylon",
-            "price": "96.99"
         }
     ]
 }

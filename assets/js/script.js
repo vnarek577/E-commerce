@@ -1,35 +1,72 @@
-function createCard(type, id, title, price) {
-    const containerFluid = document.createElement("div")
-    containerFluid.class = "container-fluid"
+// on crée une carte et on la retourne
+function createCard(image, id, title, price) {
 
-    const itemImage = `./assets/img/${type}${id}-0.webp`
-    containerFluid.innerHTML = `
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-center">
-                <div class="col-6 col-lg-3">
-                    <div class="card border-0 text-center">
-                        <img src="${itemImage}" class="card-img-top" alt="vetement1" type="button"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div class="card-body">
-                            <h5 class="card-title">${title}</h5>
-                            <div class="d-flex ">
-                                <p class="price mx-auto">${price}</p>
-                                <a class="btn btn-primary mx-auto">Ajouter au panier</a>
-                            </div>
-                        </div>
-                    </div>
+    const col = document.createElement("div")
+    col.className = "col-6 col-lg-3"
+
+    col.innerHTML = `
+        <div class="card border-0 h-100 text-center">
+            <img src="${image}" class="card-img-top" alt="vetement1" type="button"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <div class="card-body d-flex flex-column">
+                <p class="articleTitle card-title">${title}</p>
+                <div class="d-flex mt-auto">
+                    <p class="price mx-auto">${price} €</p>
+                    <a class="add-to-basket btn btn-primary mx-auto">Ajouter au panier</a>
                 </div>
             </div>
         </div>
     `
 
-    return containerFluid
+    return col
 }
 
 fetch("./assets/json/clothes.json").then(response => response.json()).then(data => {
-    data.women.forEach(womenData => {
-        const card = createCard("F", womenData.id, womenData.title, womenData.price)
-        console.log(card)
-        document.getElementsByClassName("women_fragId")[0].append(card)
-    });
+    // retourne un tableau [["women", {items...}], ["men", {items...}], ["child", {items...}]]
+    const entries = Object.entries(data)
+
+    // on loop sur nos "entrées": entry = "wome", value = {items...}
+    for (const [entry, value] of entries) {
+        // on loops sur chacun des articles
+        value.forEach(dataCard => {
+
+            let letter = ""
+
+            switch (entry) {
+                case "women": letter = "F"; break;
+                case "men": letter = "H"; break;
+                case "child": letter = "E"; break;
+            }
+
+            const itemImage = `./assets/img/${letter}${dataCard.id}-0.webp`
+
+            const card = createCard(itemImage, dataCard.id, dataCard.title, dataCard.price)
+            document.getElementsByClassName(`${entry}_container`)[0].children[0].append(card)
+
+            // au clic sur ajouter au panier
+            card.getElementsByClassName("add-to-basket")[0].onclick = function () {
+                // on incrémente le score du panier
+                incrementBasketCount()
+
+                // référence vers notre modale
+                const modal = document.getElementsByClassName("modal")[0]
+
+                // modification du titre
+
+                // modification de l'image
+                modal.getElementsByTagName("img")[0].src = itemImage
+
+                // modification du carrousel
+
+                // modification du prix
+
+                // modification du clique sur ajouter au panier de la modale
+                modal.getElementsByTagName("btn")[0].onclick = function () {
+
+                }
+            }
+
+        })
+
+    }
 })
