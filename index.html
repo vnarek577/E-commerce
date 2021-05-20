@@ -84,7 +84,7 @@
                         <p class="card-title articleTitle">Veste en jean</p>
                         <div class="d-flex ">
                             <p class="price mx-auto">15€</p>
-                            <a class="btn btn-primary mx-auto">Ajouter au panier</a>
+                            <a class="btn btn-primary mx-auto" onclick="modifyBasket()">Ajouter au panier</a>
                         </div>
                     </div>
                 </div>
@@ -124,12 +124,29 @@
                     the card's content</p>
                 <p class="descriprix"> <strong>Prix : </strong>15€</p>
                 <div class="d-flex justify-content-center ">
-                    <button type="button" class="btn btn-primary">Ajouter au panier</button>
+                    <button type="button" class="btn btn-primary" onclick="modifyBasket()">Ajouter au panier</button>
                 </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+<script>
+
+//Fonction permettant de faire évoluer le chiffre du volume d'article à coté du panier
+
+let addBasket = 0
+
+function modifyBasket(){
+    addBasket++
+    console.log(addBasket)
+    }
+
+
+</script>
+
+
 
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
