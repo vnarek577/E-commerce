@@ -11,7 +11,7 @@ function createCard(image, id, title, price) {
             <div class="card-body d-flex flex-column">
                 <p class="articleTitle card-title">${title}</p>
                 <div class="d-flex mt-auto">
-                    <p class="price mx-auto">${price} €</p>
+                    <p class="price mx-auto">${price}&nbsp;€</p>
                     <a class="add-to-basket btn btn-primary mx-auto">Ajouter au panier</a>
                 </div>
             </div>
@@ -38,32 +38,42 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
                 case "child": letter = "E"; break;
             }
 
-            const itemImage = `./assets/img/${letter}${dataCard.id}-0.webp`
+            const itemsImages = []
 
-            const card = createCard(itemImage, dataCard.id, dataCard.title, dataCard.price)
+            for (let i = 0; i < 3; i++) {
+                itemsImages.push(`./assets/img/${letter}${dataCard.id}-${i}.webp`)
+            }
+
+            console.log(itemsImages)
+
+            const card = createCard(itemsImages[0], dataCard.id, dataCard.title, dataCard.price)
             document.getElementsByClassName(`${entry}_container`)[0].children[0].append(card)
 
             // au clic sur ajouter au panier
-            card.getElementsByClassName("add-to-basket")[0].onclick = function () {
+            card.getElementsByTagName("img")[0].onclick = function () {
                 // on incrémente le score du panier
-                incrementBasketCount()
+                // incrementBasketCount()
 
                 // référence vers notre modale
                 const modal = document.getElementsByClassName("modal")[0]
 
                 // modification du titre
-
-                // modification de l'image
-                modal.getElementsByTagName("img")[0].src = itemImage
+                modal.getElementsByClassName("titreModal")[0].innerHTML = dataCard.title
 
                 // modification du carrousel
+                const carouselItemChildren = modal.getElementsByClassName("carousel-item")[0].children
+                for (let i = 0; i < 3; i++) {
+                    modal.getElementsByTagName("img")[i].src = itemsImages[i]
+                }
 
                 // modification du prix
+                modal.getElementsByClassName("descriprix")[0].children[0].innerHTML = dataCard.title
+                modal.getElementsByClassName("descriprix")[1].children[0].innerHTML = dataCard.price
 
                 // modification du clique sur ajouter au panier de la modale
-                modal.getElementsByTagName("btn")[0].onclick = function () {
+                // modal.getElementsByTagName("btn")[0].onclick = function () {
 
-                }
+                // }
             }
 
         })
