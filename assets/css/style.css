@@ -3,6 +3,42 @@
 }
 
 .articleTitle {
-    margin-bottom: 1rem;
     font-size: 1.25rem !important;
+    margin-bottom: 1rem;
+}
+
+.imgModal {
+    width: 28rem;
+}
+
+.tailleModal {
+    width: 30rem !important;
+}
+
+
+.hauteurHeadModal {
+    width: 0.5rem !important;
+}
+
+.titreModal {
+    margin-top: 0.5em;
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+}
+
+.descriprix {
+    /* margin-top: 0.3em; */
+    font-size: 15px;
+    color: black;
+    padding: 2px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    outline: black;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    border: 1px solid black;
 }
