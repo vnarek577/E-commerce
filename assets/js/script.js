@@ -2,6 +2,7 @@ let articles
 const addedToBasket = []
 
 
+
 // on crée une carte et on la retourne
 function createCard(image, id, title, price) {
 
@@ -30,11 +31,15 @@ function createTableRow(image, type, id, title, price) {
     const row = document.createElement("tr")
     row.className = "w-100"
 
+    let Stock = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+    let randomStock = Stock[Math.floor(Math.random() * Stock.length)]
+
     row.innerHTML = `
         <td><img width="50px" height="50px" src="${image}"></td>
         <td>${title}</td>
         <td>${price}</td>
         <td data-quantity="fefe">1</td>
+        <td>${randomStock}</td>
         <td><button type="button"><i class="bi bi-trash"></i></button></td>
     `
 
@@ -42,6 +47,7 @@ function createTableRow(image, type, id, title, price) {
         type: type,
         id: id,
         quantity: 1,
+        "randomStock" : randomStock,
         ref: row.querySelector("[data-quantity]")
     }
 
@@ -77,14 +83,19 @@ function onAddToButtonClick(entry, dataCard, itemsImages) {
 
     const modal = document.getElementsByClassName("basket")[0]
 
+
     let isOnlyOneExist = false
 
     addedToBasket.forEach(article => {
         // women                    // 0
         if (article.type == entry && article.id == dataCard.id) {
-            article.quantity++
-            article.ref.innerHTML = article.quantity
             isOnlyOneExist = true
+            if (article.quantity >= article.randomStock) {
+                window.alert("ya plus rien en boutique!!!")
+            } else {
+                article.quantity++
+                article.ref.innerHTML = article.quantity
+            }
         }
     })
 
@@ -123,8 +134,11 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
 
             // console.log(itemsImages)
 
+
             const card = createCard(itemsImages[0], dataCard.id, dataCard.title, dataCard.price)
             document.getElementsByClassName(`${entry}_container`)[0].children[0].append(card)
+
+            // console.log(randomStock)
 
             // au clic sur l'image
             card.getElementsByTagName("img")[0].onclick = function () {
