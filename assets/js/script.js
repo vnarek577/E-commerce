@@ -136,9 +136,16 @@ function updateTotalPrice() {
     })
     document.querySelector("[data-total-price]").children[0].innerHTML = (totalPriceAmount).toFixed(2)
 
-    const basketActive = document.getElementsByClassName("basket-active")[0]
-    if (totalPriceAmount == 0) basketActive.classList.add("unactive")
-    else basketActive.classList.remove("unactive")
+    const table = document.getElementsByClassName("table-basket")[0]
+    const emptyBasket = document.getElementsByClassName("empty-basket")[0]
+    if (totalPriceAmount == 0) {
+        table.classList.add("unactive")
+        emptyBasket.classList.remove("unactive")
+    }
+    else {
+        table.classList.remove("unactive")
+        emptyBasket.classList.add("unactive")
+    }
 }
 
 function onAddToButtonClick(entry, dataCard, itemsImages) {

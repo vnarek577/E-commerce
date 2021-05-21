@@ -130,3 +130,7 @@
 .unactive {
     display: none;
 }
+
+.bg-title {
+    background-color: #4d4d4e !important;
+}
