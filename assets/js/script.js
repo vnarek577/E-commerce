@@ -54,12 +54,18 @@ function createTableRow(image, type, id, title, price) {
         const myBasket = document.getElementById("myBasket")
         const myBasketValue = +myBasket.innerHTML
 
+        addBasket -= articleToRemove.quantity
         myBasket.innerHTML = myBasketValue - articleToRemove.quantity
+
+        if (addBasket == 0) {
+            document.getElementById("myBasket").className = "item-count2"
+        } else
+            document.getElementById("myBasket").className = "item-count"
     }
 
     addedToBasket.push(currentArticleInBasket)
 
-    console.log(addedToBasket)
+    // console.log(addedToBasket)
 
     return row
 }
@@ -115,7 +121,7 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
                 itemsImages.push(`./assets/img/${letter}${dataCard.id}-${i}.webp`)
             }
 
-            console.log(itemsImages)
+            // console.log(itemsImages)
 
             const card = createCard(itemsImages[0], dataCard.id, dataCard.title, dataCard.price)
             document.getElementsByClassName(`${entry}_container`)[0].children[0].append(card)
