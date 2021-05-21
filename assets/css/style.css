@@ -25,11 +25,6 @@
     border: 1px solid black;
 }
 
-@font-face {
-    font-family: "Pattaya-Regular";
-    src: url(./assets/font/Pattaya-Regular.ttf);
-}
-
 .header {
     text-align: center;
     color: white;
@@ -129,4 +124,28 @@
 
 .unactive {
     display: none;
+}
+
+.bg-title {
+    background-color: #4d4d4e !important;
+}
+
+.adapt-basket .modal-body{
+    overflow-x: scroll;
+    
+}
+
+.adapt-basket {
+    max-width: 100%
+}
+
+
+@media screen and (min-width : 576px) {
+    .adapt-basket{
+        max-width: 60%;
+    }
+
+    .adapt-basket .modal-body {
+        overflow-x: auto;
+    }
 }
