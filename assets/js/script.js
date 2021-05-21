@@ -15,9 +15,9 @@ function createCard(image, id, title, price) {
                 data-bs-toggle="modal" data-bs-target="#exampleModal">
             <div class="card-body d-flex flex-column">
                 <p class="articleTitle card-title">${title}</p>
-                <div class="d-flex mt-auto">
+                <div class="mt-auto col-sm-12">
                     <p class="price mx-auto"><b>${price}&nbsp;€</b></p>
-                    <a class="add-to-basket btn btn-primary mx-auto">Ajouter au panier</a>
+                    <button class="add-to-basket btn btn-dark mx-auto">Ajouter au panier</button>
                 </div>
             </div>
         </div>
@@ -197,9 +197,15 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
             let letter = ""
 
             switch (entry) {
-                case "women": letter = "F"; break;
-                case "men": letter = "H"; break;
-                case "child": letter = "E"; break;
+                case "women":
+                    letter = "F";
+                    break;
+                case "men":
+                    letter = "H";
+                    break;
+                case "child":
+                    letter = "E";
+                    break;
             }
 
             const itemsImages = []
