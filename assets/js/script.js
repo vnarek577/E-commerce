@@ -25,6 +25,23 @@ function createCard(image, id, title, price) {
     return col
 }
 
+function removeArticle(row, currentArticleInBasket) {
+    // suppression de l'article dans l'array
+    const index = addedToBasket.indexOf(currentArticleInBasket)
+
+    // on supprime l'élément html article
+    row.parentElement.removeChild(row)
+
+    return addedToBasket.splice(index, 1)[0]
+}
+
+// mise a jour du score du panier avec la nouvelle valeur
+function updateBasketValueWith(newValue) {
+    const myBasket = document.getElementById("myBasket")
+    const myBasketValue = +myBasket.innerHTML
+    myBasket.innerHTML = myBasketValue + newValue
+}
+
 function createTableRow(image, type, id, title, price) {
 
     const row = document.createElement("tr")
@@ -34,7 +51,7 @@ function createTableRow(image, type, id, title, price) {
         <td><img width="50px" height="50px" src="${image}"></td>
         <td>${title}</td>
         <td>${price}</td>
-        <td data-quantity="fefe">1</td>
+        <td data-quantity><button>-</button><span>1</span><button>+</button></td>
         <td><button type="button"><i class="bi bi-trash"></i></button></td>
     `
 
@@ -42,19 +59,35 @@ function createTableRow(image, type, id, title, price) {
         type: type,
         id: id,
         quantity: 1,
-        ref: row.querySelector("[data-quantity]")
+        ref: row.querySelector("[data-quantity]").getElementsByTagName("span")[0]
     }
 
-    row.getElementsByTagName("button")[0].onclick = function () {
-        row.parentElement.removeChild(row)
-        const index = addedToBasket.indexOf(currentArticleInBasket)
-        const articleToRemove = addedToBasket[index]
-        addedToBasket.splice(index, 1)
+    const rowButons = row.getElementsByTagName("button")
 
-        const myBasket = document.getElementById("myBasket")
-        const myBasketValue = +myBasket.innerHTML
+    // enlever une quantité article
+    rowButons[0].onclick = function () {
+        if (currentArticleInBasket.quantity > 1) {
+            currentArticleInBasket.quantity--
+            currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
+        }
+        else removeArticle(row, currentArticleInBasket)
+        addBasket--
+        updateBasketValueWith(-1)
+    }
 
-        myBasket.innerHTML = myBasketValue - articleToRemove.quantity
+    // ajouter une quantité d'article
+    rowButons[1].onclick = function () {
+        currentArticleInBasket.quantity++
+        addBasket++
+        currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
+        updateBasketValueWith(1)
+    }
+
+    rowButons[2].onclick = function () {
+        const articleRemoved = removeArticle(row, currentArticleInBasket)
+        addBasket -= articleRemoved.quantity
+        // on met à jour
+        updateBasketValueWith(-articleRemoved.quantity)
     }
 
     addedToBasket.push(currentArticleInBasket)
@@ -125,18 +158,15 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
                 // référence vers notre modale
                 const modal = document.getElementsByClassName("modalDescriptionArticle")[0]
 
-                // modification du titre
-                console.log(modal)
-                modal.getElementsByClassName("titreModal")[0].innerHTML = dataCard.title
-
                 // modification du carrousel
                 const carouselItemChildren = modal.getElementsByClassName("carousel-item")[0].children
                 for (let i = 0; i < 3; i++) {
                     modal.getElementsByTagName("img")[i].src = itemsImages[i]
                 }
 
-                // modification du prix
+                // modification du titre
                 modal.getElementsByClassName("descriprix")[0].children[0].innerHTML = dataCard.title
+                // modification du prix
                 modal.getElementsByClassName("descriprix")[1].children[0].innerHTML = dataCard.price
 
                 // modification du clique sur ajouter au panier de la modale
