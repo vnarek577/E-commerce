@@ -76,32 +76,27 @@ function createTableRow(image, type, id, title, price) {
         if (currentArticleInBasket.quantity > 1) {
             currentArticleInBasket.quantity--
             currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
-            updateTotalPrice(currentArticleInBasket.quantity * currentArticleInBasket.price)
         }
         else {
             removeArticle(row, currentArticleInBasket)
-
-            let totalPriceAmount = 0
-            addedToBasket.forEach(article => {
-                totalPriceAmount += article.price * article.quantity
-            })
-            updateTotalPrice(totalPriceAmount)
         }
         addBasket--
         updateBasketValueWith(-1)
 
         hideScoreIfZeroArticle()
 
+        updateTotalPrice()
     }
 
     // ajouter une quantité d'article
     rowButons[1].onclick = function () {
-        if (!func(currentArticleInBasket)) {
+        if (!isInStock(currentArticleInBasket)) {
             currentArticleInBasket.quantity++
             addBasket++
             currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
             updateBasketValueWith(1)
-            updateTotalPrice(currentArticleInBasket.quantity * currentArticleInBasket.price)
+
+            updateTotalPrice()
         }
     }
 
@@ -113,11 +108,7 @@ function createTableRow(image, type, id, title, price) {
 
         hideScoreIfZeroArticle()
 
-        let totalPriceAmount = 0
-        addedToBasket.forEach(article => {
-            totalPriceAmount += article.price * article.quantity
-        })
-        updateTotalPrice(totalPriceAmount)
+        updateTotalPrice()
     }
 
     addedToBasket.push(currentArticleInBasket)
@@ -134,12 +125,16 @@ function hideScoreIfZeroArticle() {
         document.getElementById("myBasket").className = "item-count"
 }
 
-function func(article) {
+function isInStock(article) {
     return article.quantity >= article.randomStock
 }
 
-function updateTotalPrice(amount) {
-    document.querySelector("[data-total-price]").innerHTML = amount
+function updateTotalPrice() {
+    let totalPriceAmount = 0
+    addedToBasket.forEach(article => {
+        totalPriceAmount += article.price * article.quantity
+    })
+    document.querySelector("[data-total-price]").children[0].innerHTML = (totalPriceAmount).toFixed(2)
 }
 
 function onAddToButtonClick(entry, dataCard, itemsImages) {
@@ -151,13 +146,12 @@ function onAddToButtonClick(entry, dataCard, itemsImages) {
 
 
     let isOnlyOneExist = false
-    let totalPrice = 0
 
     addedToBasket.forEach(article => {
         // women                    // 0
         if (article.type == entry && article.id == dataCard.id) {
             isOnlyOneExist = true
-            if (func(article)) {
+            if (isInStock(article)) {
                 window.alert("ya plus rien en boutique!!!")
             } else {
                 article.quantity++
@@ -168,8 +162,6 @@ function onAddToButtonClick(entry, dataCard, itemsImages) {
             }
         }
 
-        // on met à jour le prix total
-        updateTotalPrice(article.quantity * article.price)
     })
 
     if (isOnlyOneExist == false) {
@@ -180,9 +172,9 @@ function onAddToButtonClick(entry, dataCard, itemsImages) {
         myBasket.innerHTML = addBasket
         hideScoreIfZeroArticle()
 
-        // on met à jour le prix total
-        updateTotalPrice(dataCard.price)
     }
+
+    updateTotalPrice()
 }
 
 fetch("./assets/json/clothes.json").then(response => response.json()).then(data => {
