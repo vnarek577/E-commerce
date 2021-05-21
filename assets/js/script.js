@@ -1,3 +1,7 @@
+let articles
+const addedToBasket = []
+
+
 // on crée une carte et on la retourne
 function createCard(image, id, title, price) {
 
@@ -21,11 +25,78 @@ function createCard(image, id, title, price) {
     return col
 }
 
+function createTableRow(image, type, id, title, price) {
+
+    const row = document.createElement("tr")
+    row.className = "w-100"
+
+    row.innerHTML = `
+        <td><img width="50px" height="50px" src="${image}"></td>
+        <td>${title}</td>
+        <td>${price}</td>
+        <td data-quantity="fefe">1</td>
+        <td><button type="button"><i class="bi bi-trash"></i></button></td>
+    `
+
+    const currentArticleInBasket = {
+        type: type,
+        id: id,
+        quantity: 1,
+        ref: row.querySelector("[data-quantity]")
+    }
+
+    row.getElementsByTagName("button")[0].onclick = function () {
+        row.parentElement.removeChild(row)
+        const index = addedToBasket.indexOf(currentArticleInBasket)
+        const articleToRemove = addedToBasket[index]
+        addedToBasket.splice(index, 1)
+
+        const myBasket = document.getElementById("myBasket")
+        const myBasketValue = +myBasket.innerHTML
+
+        myBasket.innerHTML = myBasketValue - articleToRemove.quantity
+    }
+
+    addedToBasket.push(currentArticleInBasket)
+
+    console.log(addedToBasket)
+
+    return row
+}
+
+function onAddToButtonClick(entry, dataCard, itemsImages) {
+
+    // on incrémente le score du panier
+    modifyBasket()
+
+    const modal = document.getElementsByClassName("basket")[0]
+
+    let isOnlyOneExist = false
+
+    addedToBasket.forEach(article => {
+        // women                    // 0
+        if (article.type == entry && article.id == dataCard.id) {
+            article.quantity++
+            article.ref.innerHTML = article.quantity
+            isOnlyOneExist = true
+        }
+    })
+
+    if (isOnlyOneExist == false) {
+        const tableRow = createTableRow(itemsImages[0], entry, dataCard.id, dataCard.title, dataCard.price)
+        modal.getElementsByTagName("tbody")[0].append(tableRow)
+    }
+}
+
 fetch("./assets/json/clothes.json").then(response => response.json()).then(data => {
+
+    // 
+    articles = data
+
     // retourne un tableau [["women", {items...}], ["men", {items...}], ["child", {items...}]]
     const entries = Object.entries(data)
 
-    // on loop sur nos "entrées": entry = "wome", value = {items...}
+    // on loop sur nos "entrées": entry = "women", value = [{items...}, {items...}]
     for (const [entry, value] of entries) {
         // on loops sur chacun des articles
         value.forEach(dataCard => {
@@ -69,15 +140,10 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
                 modal.getElementsByClassName("descriprix")[1].children[0].innerHTML = dataCard.price
 
                 // modification du clique sur ajouter au panier de la modale
-                // modal.getElementsByTagName("btn")[0].onclick = function () {
-
-                // }
+                modal.getElementsByClassName("btn")[0].onclick = onAddToButtonClick.bind(null, entry, dataCard, itemsImages)
             }
             // au click sur le bouton "ajout au panier"
-            card.getElementsByClassName("add-to-basket")[0].onclick = function () {
-                // on incrémente le score du panier
-                modifyBasket()
-            }
+            card.getElementsByClassName("add-to-basket")[0].onclick = onAddToButtonClick.bind(null, entry, dataCard, itemsImages)
 
         })
 
