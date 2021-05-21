@@ -1,23 +1,5 @@
-.price {
-    font-weight: bold;
-}
-
-.articleTitle {
-    font-size: 1.25rem !important;
-    margin-bottom: 1rem;
-}
-
 .imgModal {
-    width: 28rem;
-}
-
-.tailleModal {
-    width: 30rem !important;
-}
-
-
-.hauteurHeadModal {
-    width: 0.5rem !important;
+    width: 25rem;
 }
 
 .titreModal {
@@ -28,7 +10,7 @@
 }
 
 .descriprix {
-    /* margin-top: 0.3em; */
+    margin-top: 0.3em;
     font-size: 15px;
     color: black;
     padding: 2px;
