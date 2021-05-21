@@ -11,111 +11,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
+    <title>PGN</title>
 </head>
-<style>
-    @font-face {
-        font-family: "Pattaya-Regular";
-        src: url(./assets/font/Pattaya-Regular.ttf);
-    }
-    
-    .header {
-        text-align: center;
-        color: white;
-        font-size: 30px;
-    }
-    
-    .header img {
-        width: 90%;
-    }
-    
-    .border-left {
-        border-left: 0.0625rem solid white;
-    }
-    
-    .logo {
-        font-family: "Pattaya-Regular";
-        font-size: 40px;
-    }
-    
-    .gop {
-        font-size: 50px;
-    }
-    
-    .item-count {
-        width: 1rem;
-        height: 1rem;
-        display: flex;
-        flex-wrap: wrap;
-        background-color: grey;
-        align-content: center;
-        justify-content: center;
-        border-radius: 100%;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        color: white;
-    }
-    
-    .item-count2 {
-        display: none;
-    }
-    
-    .item-button {
-        position: relative;
-    }
-    
-    .button-space {
-        position: relative;
-    }
-    
-    .color {
-        color: white;
-        font-size: x-large;
-    }
-    
-    .footer-size {
-        background: #262626;
-        color: #627482 !important;
-        text-align: center;
-        width: 100%;
-        height: 600px;
-        justify-content: space-around;
-        padding-bottom: 20px;
-        background-image: url("./1.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
-    
-    .footer-size ul {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .footer-size i {
-        color: white;
-        font-size: x-large;
-    }
-    
-    .footer-size li {
-        justify-content: space-between;
-        flex-grow: 1;
-    }
-    
-    .border-right {
-        border-left: 0.0625rem solid white;
-    }
-    
-    .reseaux li {
-        justify-content: space-between;
-    }
-    
-    .soulignerText {
-        text-decoration: none;
-        color: red;
-    }
-</style>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -166,6 +63,7 @@
                                 <th>Description</th>
                                 <th>Prix</th>
                                 <th>Quantité</th>
+                                <th id="stock">Stocks</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -174,7 +72,7 @@
                     <p></p>
                 </div>
                 <div class="modal-footer">
-                    <div>Prix total</div>
+                    <div class="me-auto">Prix total :<span data-total-price></span></div>
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Valider mon panier</button>
                 </div>
             </div>
@@ -210,30 +108,12 @@
     </main>
 
 
-
-    <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-            <div class="col-6 col-lg-3">
-                <div class="card border-0 text-center">
-                    <img src="./assets/img/imgvetement.jpg" class="card-img-top" alt="vetement1" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <div class="card-body">
-                        <p class="card-title articleTitle">Veste en jean</p>
-                        <div class="d-flex ">
-                            <p class="price mx-auto">15€</p>
-                            <a class="btn btn-primary mx-auto" onclick="modifyBasket()">Ajouter au panier</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Modal -->
     <div class="modal fade modalDescriptionArticle" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-body text-center">
+                <div class="modal-body text-center p-0">
                     <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
@@ -255,12 +135,11 @@
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
-                    <p class="titreModal text-center"></p>
-                    <p class="descriprix"> <strong></strong></p>
-                    <p class="descriprix"> <strong></strong><strong>&nbsp;€</strong></p>
+                    <div class="titreModal text-center"></div>
+                    <div class="descriprix"> <strong></strong></div>
+                    <div class="descriprix"> <strong></strong><strong>&nbsp;€</strong></div>
                     <div class="d-flex justify-content-center ">
-                        <button type="button" class="btn btn-primary">Ajouter au
-                            panier</button>
+                        <button type="button" class="btn btn-dark mb-2 mt-2">Ajouter au panier</button>
                     </div>
                 </div>
             </div>
@@ -725,7 +604,8 @@
 
 
 
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
     <script src="assets/js/script.js"></script>
 
 </body>

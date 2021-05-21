@@ -2,6 +2,7 @@ let articles
 const addedToBasket = []
 
 
+
 // on crée une carte et on la retourne
 function createCard(image, id, title, price) {
 
@@ -16,8 +17,10 @@ function createCard(image, id, title, price) {
                 <p class="articleTitle card-title">${title}</p>
                 <div class="d-flex mt-auto">
                     <p class="price mx-auto">${price}&nbsp;€</p>
-                    <a class="add-to-basket btn btn-primary mx-auto">Ajouter au panier</a>
                 </div>
+                <div class="col-sm-12">
+                    <button class="add-to-basket btn btn-dark mx-auto">Ajouter au panier</button>
+                    </div>
             </div>
         </div>
     `
@@ -25,66 +28,161 @@ function createCard(image, id, title, price) {
     return col
 }
 
+function removeArticle(row, currentArticleInBasket) {
+    // suppression de l'article dans l'array
+    const index = addedToBasket.indexOf(currentArticleInBasket)
+
+    // on supprime l'élément html article
+    row.parentElement.removeChild(row)
+
+    return addedToBasket.splice(index, 1)[0]
+}
+
+// mise a jour du score du panier avec la nouvelle valeur
+function updateBasketValueWith(newValue) {
+    const myBasket = document.getElementById("myBasket")
+    const myBasketValue = +myBasket.innerHTML
+    myBasket.innerHTML = myBasketValue + newValue
+}
+
 function createTableRow(image, type, id, title, price) {
 
     const row = document.createElement("tr")
     row.className = "w-100"
 
+    let Stock = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    let randomStock = Stock[Math.floor(Math.random() * Stock.length)]
+
     row.innerHTML = `
         <td><img width="50px" height="50px" src="${image}"></td>
         <td>${title}</td>
         <td>${price}</td>
-        <td data-quantity="fefe">1</td>
+        <td data-quantity><button>-</button><span>1</span><button>+</button></td>
+        <td>${randomStock}</td>
         <td><button type="button"><i class="bi bi-trash"></i></button></td>
     `
 
     const currentArticleInBasket = {
         type: type,
         id: id,
+        price: price,
         quantity: 1,
-        ref: row.querySelector("[data-quantity]")
+        randomStock: randomStock,
+        ref: row.querySelector("[data-quantity]").getElementsByTagName("span")[0]
     }
 
-    row.getElementsByTagName("button")[0].onclick = function () {
-        row.parentElement.removeChild(row)
-        const index = addedToBasket.indexOf(currentArticleInBasket)
-        const articleToRemove = addedToBasket[index]
-        addedToBasket.splice(index, 1)
+    const rowButons = row.getElementsByTagName("button")
 
-        const myBasket = document.getElementById("myBasket")
-        const myBasketValue = +myBasket.innerHTML
+    // enlever une quantité article
+    rowButons[0].onclick = function () {
+        if (currentArticleInBasket.quantity > 1) {
+            currentArticleInBasket.quantity--
+            currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
+            updateTotalPrice(currentArticleInBasket.quantity * currentArticleInBasket.price)
+        } else {
+            removeArticle(row, currentArticleInBasket)
 
-        myBasket.innerHTML = myBasketValue - articleToRemove.quantity
+            let totalPriceAmount = 0
+            addedToBasket.forEach(article => {
+                totalPriceAmount += article.price * article.quantity
+            })
+            updateTotalPrice(totalPriceAmount)
+        }
+        addBasket--
+        updateBasketValueWith(-1)
+
+        hideScoreIfZeroArticle()
+
+    }
+
+    // ajouter une quantité d'article
+    rowButons[1].onclick = function () {
+        if (!func(currentArticleInBasket)) {
+            currentArticleInBasket.quantity++
+            addBasket++
+            currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
+            updateBasketValueWith(1)
+            updateTotalPrice(currentArticleInBasket.quantity * currentArticleInBasket.price)
+        }
+    }
+
+    rowButons[2].onclick = function () {
+        const articleRemoved = removeArticle(row, currentArticleInBasket)
+        addBasket -= articleRemoved.quantity
+
+        updateBasketValueWith(-articleRemoved.quantity)
+
+        hideScoreIfZeroArticle()
+
+        let totalPriceAmount = 0
+        addedToBasket.forEach(article => {
+            totalPriceAmount += article.price * article.quantity
+        })
+        updateTotalPrice(totalPriceAmount)
     }
 
     addedToBasket.push(currentArticleInBasket)
 
-    console.log(addedToBasket)
+    // console.log(addedToBasket)
 
     return row
+}
+
+function hideScoreIfZeroArticle() {
+    if (addBasket == 0) {
+        document.getElementById("myBasket").className = "item-count2"
+    } else
+        document.getElementById("myBasket").className = "item-count"
+}
+
+function func(article) {
+    return article.quantity >= article.randomStock
+}
+
+function updateTotalPrice(amount) {
+    document.querySelector("[data-total-price]").innerHTML = amount
 }
 
 function onAddToButtonClick(entry, dataCard, itemsImages) {
 
     // on incrémente le score du panier
-    modifyBasket()
 
     const modal = document.getElementsByClassName("basket")[0]
+    const totalPrice_el = document.querySelector("[data-total-price]")
+
 
     let isOnlyOneExist = false
+    let totalPrice = 0
 
     addedToBasket.forEach(article => {
         // women                    // 0
         if (article.type == entry && article.id == dataCard.id) {
-            article.quantity++
-            article.ref.innerHTML = article.quantity
             isOnlyOneExist = true
+            if (func(article)) {
+                window.alert("ya plus rien en boutique!!!")
+            } else {
+                article.quantity++
+                article.ref.innerHTML = article.quantity
+                addBasket++
+                myBasket.innerHTML = addBasket
+                hideScoreIfZeroArticle()
+            }
         }
+
+        // on met à jour le prix total
+        updateTotalPrice(article.quantity * article.price)
     })
 
     if (isOnlyOneExist == false) {
         const tableRow = createTableRow(itemsImages[0], entry, dataCard.id, dataCard.title, dataCard.price)
         modal.getElementsByTagName("tbody")[0].append(tableRow)
+
+        addBasket++
+        myBasket.innerHTML = addBasket
+        hideScoreIfZeroArticle()
+
+        // on met à jour le prix total
+        updateTotalPrice(dataCard.price)
     }
 }
 
@@ -104,9 +202,15 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
             let letter = ""
 
             switch (entry) {
-                case "women": letter = "F"; break;
-                case "men": letter = "H"; break;
-                case "child": letter = "E"; break;
+                case "women":
+                    letter = "F";
+                    break;
+                case "men":
+                    letter = "H";
+                    break;
+                case "child":
+                    letter = "E";
+                    break;
             }
 
             const itemsImages = []
@@ -115,19 +219,18 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
                 itemsImages.push(`./assets/img/${letter}${dataCard.id}-${i}.webp`)
             }
 
-            console.log(itemsImages)
+            // console.log(itemsImages)
+
 
             const card = createCard(itemsImages[0], dataCard.id, dataCard.title, dataCard.price)
             document.getElementsByClassName(`${entry}_container`)[0].children[0].append(card)
+
+            // console.log(randomStock)
 
             // au clic sur l'image
             card.getElementsByTagName("img")[0].onclick = function () {
                 // référence vers notre modale
                 const modal = document.getElementsByClassName("modalDescriptionArticle")[0]
-
-                // modification du titre
-                console.log(modal)
-                modal.getElementsByClassName("titreModal")[0].innerHTML = dataCard.title
 
                 // modification du carrousel
                 const carouselItemChildren = modal.getElementsByClassName("carousel-item")[0].children
@@ -135,8 +238,9 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
                     modal.getElementsByTagName("img")[i].src = itemsImages[i]
                 }
 
-                // modification du prix
+                // modification du titre
                 modal.getElementsByClassName("descriprix")[0].children[0].innerHTML = dataCard.title
+                // modification du prix
                 modal.getElementsByClassName("descriprix")[1].children[0].innerHTML = dataCard.price
 
                 // modification du clique sur ajouter au panier de la modale
@@ -153,12 +257,3 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
 //Fonction permettant de faire évoluer le chiffre du volume d'article à coté du panier
 
 let addBasket = 0
-
-function modifyBasket() {
-    addBasket++
-    myBasket.innerHTML = addBasket
-    if (addBasket == 0) {
-        document.getElementById("myBasket").className = "item-count2"
-    } else
-        document.getElementById("myBasket").className = "item-count"
-}
