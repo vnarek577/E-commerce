@@ -17,8 +17,10 @@ function createCard(image, id, title, price) {
                 <p class="articleTitle card-title">${title}</p>
                 <div class="d-flex mt-auto">
                     <p class="price mx-auto">${price}&nbsp;€</p>
-                    <a class="add-to-basket btn btn-primary mx-auto">Ajouter au panier</a>
                 </div>
+                <div class="col-sm-12">
+                    <button class="add-to-basket btn btn-dark mx-auto">Ajouter au panier</button>
+                    </div>
             </div>
         </div>
     `
@@ -77,8 +79,7 @@ function createTableRow(image, type, id, title, price) {
             currentArticleInBasket.quantity--
             currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
             updateTotalPrice(currentArticleInBasket.quantity * currentArticleInBasket.price)
-        }
-        else {
+        } else {
             removeArticle(row, currentArticleInBasket)
 
             let totalPriceAmount = 0
@@ -201,9 +202,15 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
             let letter = ""
 
             switch (entry) {
-                case "women": letter = "F"; break;
-                case "men": letter = "H"; break;
-                case "child": letter = "E"; break;
+                case "women":
+                    letter = "F";
+                    break;
+                case "men":
+                    letter = "H";
+                    break;
+                case "child":
+                    letter = "E";
+                    break;
             }
 
             const itemsImages = []
