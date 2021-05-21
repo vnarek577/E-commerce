@@ -52,7 +52,7 @@ function createTableRow(image, type, id, title, price) {
     let randomStock = Stock[Math.floor(Math.random() * Stock.length)]
 
     row.innerHTML = `
-        <td><img width="50px" height="50px" src="${image}"></td>
+        <td><img width="120rem" src="${image}"></td>
         <td>${title}</td>
         <td>${price}</td>
         <td data-quantity><button type="button" class="btn">-</button><span>1</span><button type="button" class="btn">+</button></td>
