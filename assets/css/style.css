@@ -84,3 +84,45 @@
     color: white;
     font-size: x-large;
 }
+
+.footer-size {
+    background: #262626;
+    color: #627482 !important;
+    text-align: center;
+    width: 100%;
+    height: 600px;
+    justify-content: space-around;
+    padding-bottom: 20px;
+    background-image: url("../img/footer.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.footer-size ul {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.footer-size i {
+    color: white;
+    font-size: x-large;
+}
+
+.footer-size li {
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.border-right {
+    border-left: 0.0625rem solid white;
+}
+
+.reseaux li {
+    justify-content: space-between;
+}
+
+.soulignerText {
+    text-decoration: none;
+    color: red;
+}
