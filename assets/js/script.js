@@ -16,7 +16,7 @@ function createCard(image, id, title, price) {
             <div class="card-body d-flex flex-column">
                 <p class="articleTitle card-title">${title}</p>
                 <div class="d-flex mt-auto">
-                    <p class="price mx-auto">${price}&nbsp;€</p>
+                    <p class="price mx-auto"><b>${price}&nbsp;€</b></p>
                     <a class="add-to-basket btn btn-primary mx-auto">Ajouter au panier</a>
                 </div>
             </div>
@@ -55,9 +55,9 @@ function createTableRow(image, type, id, title, price) {
         <td><img width="50px" height="50px" src="${image}"></td>
         <td>${title}</td>
         <td>${price}</td>
-        <td data-quantity><button>-</button><span>1</span><button>+</button></td>
+        <td data-quantity><button type="button" class="btn">-</button><span>1</span><button type="button" class="btn">+</button></td>
         <td>${randomStock}</td>
-        <td><button type="button"><i class="bi bi-trash"></i></button></td>
+        <td><button type="button" class="btn"><i class="bi bi-trash"></i></button></td>
     `
 
     const currentArticleInBasket = {
@@ -135,6 +135,10 @@ function updateTotalPrice() {
         totalPriceAmount += article.price * article.quantity
     })
     document.querySelector("[data-total-price]").children[0].innerHTML = (totalPriceAmount).toFixed(2)
+
+    const basketActive = document.getElementsByClassName("basket-active")[0]
+    if (totalPriceAmount == 0) basketActive.classList.add("unactive")
+    else basketActive.classList.remove("unactive")
 }
 
 function onAddToButtonClick(entry, dataCard, itemsImages) {
