@@ -15,12 +15,10 @@ function createCard(image, id, title, price) {
                 data-bs-toggle="modal" data-bs-target="#exampleModal">
             <div class="card-body d-flex flex-column">
                 <p class="articleTitle card-title">${title}</p>
-                <div class="d-flex mt-auto">
-                    <p class="price mx-auto">${price}&nbsp;€</p>
-                </div>
-                <div class="col-sm-12">
+                <div class="mt-auto col-sm-12">
+                    <p class="price mx-auto"><b>${price}&nbsp;€</b></p>
                     <button class="add-to-basket btn btn-dark mx-auto">Ajouter au panier</button>
-                    </div>
+                </div>
             </div>
         </div>
     `
@@ -57,9 +55,9 @@ function createTableRow(image, type, id, title, price) {
         <td><img width="50px" height="50px" src="${image}"></td>
         <td>${title}</td>
         <td>${price}</td>
-        <td data-quantity><button>-</button><span>1</span><button>+</button></td>
+        <td data-quantity><button type="button" class="btn">-</button><span>1</span><button type="button" class="btn">+</button></td>
         <td>${randomStock}</td>
-        <td><button type="button"><i class="bi bi-trash"></i></button></td>
+        <td><button type="button" class="btn"><i class="bi bi-trash"></i></button></td>
     `
 
     const currentArticleInBasket = {
@@ -78,31 +76,27 @@ function createTableRow(image, type, id, title, price) {
         if (currentArticleInBasket.quantity > 1) {
             currentArticleInBasket.quantity--
             currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
-            updateTotalPrice(currentArticleInBasket.quantity * currentArticleInBasket.price)
-        } else {
+        }
+        else {
             removeArticle(row, currentArticleInBasket)
-
-            let totalPriceAmount = 0
-            addedToBasket.forEach(article => {
-                totalPriceAmount += article.price * article.quantity
-            })
-            updateTotalPrice(totalPriceAmount)
         }
         addBasket--
         updateBasketValueWith(-1)
 
         hideScoreIfZeroArticle()
 
+        updateTotalPrice()
     }
 
     // ajouter une quantité d'article
     rowButons[1].onclick = function () {
-        if (!func(currentArticleInBasket)) {
+        if (!isInStock(currentArticleInBasket)) {
             currentArticleInBasket.quantity++
             addBasket++
             currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
             updateBasketValueWith(1)
-            updateTotalPrice(currentArticleInBasket.quantity * currentArticleInBasket.price)
+
+            updateTotalPrice()
         }
     }
 
@@ -114,11 +108,7 @@ function createTableRow(image, type, id, title, price) {
 
         hideScoreIfZeroArticle()
 
-        let totalPriceAmount = 0
-        addedToBasket.forEach(article => {
-            totalPriceAmount += article.price * article.quantity
-        })
-        updateTotalPrice(totalPriceAmount)
+        updateTotalPrice()
     }
 
     addedToBasket.push(currentArticleInBasket)
@@ -135,12 +125,20 @@ function hideScoreIfZeroArticle() {
         document.getElementById("myBasket").className = "item-count"
 }
 
-function func(article) {
+function isInStock(article) {
     return article.quantity >= article.randomStock
 }
 
-function updateTotalPrice(amount) {
-    document.querySelector("[data-total-price]").innerHTML = amount
+function updateTotalPrice() {
+    let totalPriceAmount = 0
+    addedToBasket.forEach(article => {
+        totalPriceAmount += article.price * article.quantity
+    })
+    document.querySelector("[data-total-price]").children[0].innerHTML = (totalPriceAmount).toFixed(2)
+
+    const basketActive = document.getElementsByClassName("basket-active")[0]
+    if (totalPriceAmount == 0) basketActive.classList.add("unactive")
+    else basketActive.classList.remove("unactive")
 }
 
 function onAddToButtonClick(entry, dataCard, itemsImages) {
@@ -152,13 +150,12 @@ function onAddToButtonClick(entry, dataCard, itemsImages) {
 
 
     let isOnlyOneExist = false
-    let totalPrice = 0
 
     addedToBasket.forEach(article => {
         // women                    // 0
         if (article.type == entry && article.id == dataCard.id) {
             isOnlyOneExist = true
-            if (func(article)) {
+            if (isInStock(article)) {
                 window.alert("ya plus rien en boutique!!!")
             } else {
                 article.quantity++
@@ -169,8 +166,6 @@ function onAddToButtonClick(entry, dataCard, itemsImages) {
             }
         }
 
-        // on met à jour le prix total
-        updateTotalPrice(article.quantity * article.price)
     })
 
     if (isOnlyOneExist == false) {
@@ -181,9 +176,9 @@ function onAddToButtonClick(entry, dataCard, itemsImages) {
         myBasket.innerHTML = addBasket
         hideScoreIfZeroArticle()
 
-        // on met à jour le prix total
-        updateTotalPrice(dataCard.price)
     }
+
+    updateTotalPrice()
 }
 
 fetch("./assets/json/clothes.json").then(response => response.json()).then(data => {
