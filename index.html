@@ -127,6 +127,7 @@
                                 <th>Description</th>
                                 <th>Prix</th>
                                 <th>Quantité</th>
+                                <th id="stock">Stocks</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -135,7 +136,7 @@
                     <p></p>
                 </div>
                 <div class="modal-footer">
-                    <div>Prix total</div>
+                    <div class="me-auto">Prix total :<span data-total-price></span></div>
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Valider mon panier</button>
                 </div>
             </div>
@@ -171,25 +172,6 @@
     </main>
 
 
-
-    <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-            <div class="col-6 col-lg-3">
-                <div class="card border-0 text-center">
-                    <img src="./assets/img/imgvetement.jpg" class="card-img-top" alt="vetement1" type="button"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <div class="card-body">
-                        <p class="card-title articleTitle">Veste en jean</p>
-                        <div class="d-flex ">
-                            <p class="price mx-auto">15€</p>
-                            <a class="btn btn-primary mx-auto" onclick="modifyBasket()">Ajouter au panier</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Modal -->
     <div class="modal fade modalDescriptionArticle" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -222,8 +204,8 @@
                         </button>
                     </div>
                     <p class="titreModal text-center"></p>
-                    <p class="descriprix"> <strong></strong></p>
-                    <p class="descriprix"> <strong></strong><strong>&nbsp;€</strong></p>
+                    <p class="descriprix"><strong></strong></p>
+                    <p class="descriprix"><strong></strong><strong>&nbsp;€</strong></p>
                     <div class="d-flex justify-content-center ">
                         <button type="button" class="btn btn-primary">Ajouter au
                             panier</button>

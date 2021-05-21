@@ -2,6 +2,7 @@ let articles
 const addedToBasket = []
 
 
+
 // on crée une carte et on la retourne
 function createCard(image, id, title, price) {
 
@@ -47,18 +48,24 @@ function createTableRow(image, type, id, title, price) {
     const row = document.createElement("tr")
     row.className = "w-100"
 
+    let Stock = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    let randomStock = Stock[Math.floor(Math.random() * Stock.length)]
+
     row.innerHTML = `
         <td><img width="50px" height="50px" src="${image}"></td>
         <td>${title}</td>
         <td>${price}</td>
         <td data-quantity><button>-</button><span>1</span><button>+</button></td>
+        <td>${randomStock}</td>
         <td><button type="button"><i class="bi bi-trash"></i></button></td>
     `
 
     const currentArticleInBasket = {
         type: type,
         id: id,
+        price: price,
         quantity: 1,
+        randomStock: randomStock,
         ref: row.querySelector("[data-quantity]").getElementsByTagName("span")[0]
     }
 
@@ -69,55 +76,112 @@ function createTableRow(image, type, id, title, price) {
         if (currentArticleInBasket.quantity > 1) {
             currentArticleInBasket.quantity--
             currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
+            updateTotalPrice(currentArticleInBasket.quantity * currentArticleInBasket.price)
         }
-        else removeArticle(row, currentArticleInBasket)
+        else {
+            removeArticle(row, currentArticleInBasket)
+
+            let totalPriceAmount = 0
+            addedToBasket.forEach(article => {
+                totalPriceAmount += article.price * article.quantity
+            })
+            updateTotalPrice(totalPriceAmount)
+        }
         addBasket--
         updateBasketValueWith(-1)
+
+        hideScoreIfZeroArticle()
+
     }
 
     // ajouter une quantité d'article
     rowButons[1].onclick = function () {
-        currentArticleInBasket.quantity++
-        addBasket++
-        currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
-        updateBasketValueWith(1)
+        if (!func(currentArticleInBasket)) {
+            currentArticleInBasket.quantity++
+            addBasket++
+            currentArticleInBasket.ref.innerHTML = currentArticleInBasket.quantity
+            updateBasketValueWith(1)
+            updateTotalPrice(currentArticleInBasket.quantity * currentArticleInBasket.price)
+        }
     }
 
     rowButons[2].onclick = function () {
         const articleRemoved = removeArticle(row, currentArticleInBasket)
         addBasket -= articleRemoved.quantity
-        // on met à jour
+
         updateBasketValueWith(-articleRemoved.quantity)
+
+        hideScoreIfZeroArticle()
+
+        let totalPriceAmount = 0
+        addedToBasket.forEach(article => {
+            totalPriceAmount += article.price * article.quantity
+        })
+        updateTotalPrice(totalPriceAmount)
     }
 
     addedToBasket.push(currentArticleInBasket)
 
-    console.log(addedToBasket)
+    // console.log(addedToBasket)
 
     return row
+}
+
+function hideScoreIfZeroArticle() {
+    if (addBasket == 0) {
+        document.getElementById("myBasket").className = "item-count2"
+    } else
+        document.getElementById("myBasket").className = "item-count"
+}
+
+function func(article) {
+    return article.quantity >= article.randomStock
+}
+
+function updateTotalPrice(amount) {
+    document.querySelector("[data-total-price]").innerHTML = amount
 }
 
 function onAddToButtonClick(entry, dataCard, itemsImages) {
 
     // on incrémente le score du panier
-    modifyBasket()
 
     const modal = document.getElementsByClassName("basket")[0]
+    const totalPrice_el = document.querySelector("[data-total-price]")
+
 
     let isOnlyOneExist = false
+    let totalPrice = 0
 
     addedToBasket.forEach(article => {
         // women                    // 0
         if (article.type == entry && article.id == dataCard.id) {
-            article.quantity++
-            article.ref.innerHTML = article.quantity
             isOnlyOneExist = true
+            if (func(article)) {
+                window.alert("ya plus rien en boutique!!!")
+            } else {
+                article.quantity++
+                article.ref.innerHTML = article.quantity
+                addBasket++
+                myBasket.innerHTML = addBasket
+                hideScoreIfZeroArticle()
+            }
         }
+
+        // on met à jour le prix total
+        updateTotalPrice(article.quantity * article.price)
     })
 
     if (isOnlyOneExist == false) {
         const tableRow = createTableRow(itemsImages[0], entry, dataCard.id, dataCard.title, dataCard.price)
         modal.getElementsByTagName("tbody")[0].append(tableRow)
+
+        addBasket++
+        myBasket.innerHTML = addBasket
+        hideScoreIfZeroArticle()
+
+        // on met à jour le prix total
+        updateTotalPrice(dataCard.price)
     }
 }
 
@@ -148,10 +212,13 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
                 itemsImages.push(`./assets/img/${letter}${dataCard.id}-${i}.webp`)
             }
 
-            console.log(itemsImages)
+            // console.log(itemsImages)
+
 
             const card = createCard(itemsImages[0], dataCard.id, dataCard.title, dataCard.price)
             document.getElementsByClassName(`${entry}_container`)[0].children[0].append(card)
+
+            // console.log(randomStock)
 
             // au clic sur l'image
             card.getElementsByTagName("img")[0].onclick = function () {
@@ -183,12 +250,3 @@ fetch("./assets/json/clothes.json").then(response => response.json()).then(data 
 //Fonction permettant de faire évoluer le chiffre du volume d'article à coté du panier
 
 let addBasket = 0
-
-function modifyBasket() {
-    addBasket++
-    myBasket.innerHTML = addBasket
-    if (addBasket == 0) {
-        document.getElementById("myBasket").className = "item-count2"
-    } else
-        document.getElementById("myBasket").className = "item-count"
-}
