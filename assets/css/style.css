@@ -133,9 +133,9 @@
     padding-bottom: .5rem;
 }
 
-.adapt-basket .modal-body{
+.adapt-basket .modal-body {
     overflow-x: scroll;
-    
+
 }
 
 .adapt-basket {
@@ -144,7 +144,7 @@
 
 
 @media screen and (min-width : 576px) {
-    .adapt-basket{
+    .adapt-basket {
         max-width: 60%;
     }
 
@@ -153,7 +153,7 @@
     }
 }
 
-[data-quantity] > div {
+[data-quantity]>div {
     display: flex;
 }
 
@@ -176,4 +176,68 @@
 
 [data-promo-code]::after {
     content: " € - CODE ANOUSONEP6 (10%)"
+}
+
+.home {
+    position: absolute;
+    top: 0px;
+    color: white;
+    font-size: xx-large;
+    margin-left: 47%;
+}
+
+.hi img {
+    margin-top: -130px;
+}
+
+.hi {
+    text-align: center;
+    position: relative;
+    display: none;
+}
+
+.famme {
+    position: absolute;
+    top: 0px;
+    width: 70%;
+    color: white;
+    font-size: xx-large;
+    text-align: center;
+}
+
+.child {
+    position: absolute;
+    top: 0px;
+    color: white;
+    font-size: xx-large;
+    margin-left: 62%;
+}
+
+.hero-text {
+    color: white;
+    position: absolute;
+    display: inline-block;
+    font-size: 1.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.image {
+    position: relative;
+    font-family: 'Times New Roman', Times, serif;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 576px) {
+    .hero-text {
+        top: 20%;
+        left: 10%;
+        font-size: 3rem;
+        transform: unset;
+    }
+
+    .hi {
+        display: block;
+    }
 }
