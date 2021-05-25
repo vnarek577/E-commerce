@@ -36,7 +36,8 @@
 }
 
 .border-left {
-    border-left: 0.0625rem solid white;
+    border-left: 0.0625rem white;
+    border-style: unset;
 }
 
 .logo {
@@ -109,10 +110,6 @@
     flex-grow: 1;
 }
 
-.border-right {
-    border-left: 0.0625rem solid white;
-}
-
 .reseaux li {
     justify-content: space-between;
 }
@@ -135,21 +132,21 @@
 
 .adapt-basket .modal-body {
     overflow-x: scroll;
-
 }
 
 .adapt-basket {
     max-width: 100%
 }
 
-
-@media screen and (min-width : 576px) {
+@media screen and (min-width: 576px) {
     .adapt-basket {
         max-width: 60%;
     }
-
     .adapt-basket .modal-body {
         overflow-x: auto;
+    }
+    .border-left {
+        border-left: 0.0625rem solid white;
     }
 }
 
@@ -236,7 +233,6 @@
         font-size: 3rem;
         transform: unset;
     }
-
     .hi {
         display: block;
     }
