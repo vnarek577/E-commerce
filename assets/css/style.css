@@ -127,7 +127,8 @@
 }
 
 .bg-title {
-    background-color: #4d4d4e !important;
+    border-top: black solid 1px;
+    border-bottom: black solid 1px;
     font-size: 2rem;
     padding-top: .5rem;
     padding-bottom: .5rem;
